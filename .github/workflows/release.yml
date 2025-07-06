@@ -39,8 +39,10 @@ jobs:
         run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
 
       - name: Build binary
+        env:
+          GOOS: ${{ matrix.GOOS }}
+          GOARCH: ${{ matrix.GOARCH }}
         run: |
-          GOOS=${{ matrix.GOOS }} GOARCH=${{ matrix.GOARCH }} \
           go build -ldflags="-s -w -X main.Version=${{ env.VERSION }}" -o saferm${{ matrix.EXT }} .
 
       - name: Rename binary for release
