@@ -39,11 +39,14 @@ jobs:
           GOOS=${{ matrix.GOOS }} GOARCH=${{ matrix.GOARCH }} \
           go build -ldflags="-s -w -X main.Version=${{ env.VERSION }}" -o saferm${{ matrix.EXT }} .
 
+      - name: Rename binary for release
+        run: mv saferm${{ matrix.EXT }} saferm-${{ matrix.GOOS }}-${{ matrix.GOARCH }}
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: saferm-${{ matrix.GOOS }}-${{ matrix.GOARCH }}
-          path: saferm${{ matrix.EXT }}
+          path: saferm-${{ matrix.GOOS }}-${{ matrix.GOARCH }}
 
   release:
     needs: build
