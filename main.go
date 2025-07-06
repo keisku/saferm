@@ -14,8 +14,8 @@ var (
 	flagVerbose   = flag.BoolP("verbose", "v", false, "explain what is being done")
 	flagHelp      = flag.Bool("help", false, "display this help and exit")
 	flagVersion   = flag.Bool("version", false, "output version information and exit")
-	flagRecursive = flag.BoolP("recursive", "r", false, "remove directories and their contents recursively")
-	flagDir       = flag.BoolP("dir", "d", false, "remove empty directories")
+	flagRecursive = flag.BoolP("recursive", "r", false, "move directories and their contents recursively to Trash")
+	flagDir       = flag.BoolP("dir", "d", false, "move empty directories to Trash")
 
 	// Set by -ldflags at build time
 	Version = "unknown"
@@ -26,8 +26,8 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Usage: saferm [OPTION]... [FILE]...\n")
 		flag.PrintDefaults()
 		fmt.Fprint(os.Stderr, `
-By default, rm does not remove directories.  Use the --recursive (-r or -R)
-option to remove each listed directory, too, along with all of its contents.
+By default, saferm does not move directories.  Use the --recursive (-r or -R)
+option to move each listed directory, too, along with all of its contents.
 
 Any attempt to remove a file whose last file name component is '.' or '..'
 is rejected with a diagnostic.
