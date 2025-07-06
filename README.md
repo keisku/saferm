@@ -14,10 +14,8 @@ Go to [Releases](https://github.com/keisku/saferm/releases) and download the bin
 Example for macOS:
 
 ```
-curl -L https://github.com/keisku/saferm/releases/latest/download/saferm-darwin-amd64 -o saferm
-chmod +x saferm
+curl -L "https://github.com/keisku/saferm/releases/latest/download/saferm-darwin-amd64" -o /usr/local/bin/saferm && sudo chmod +x /usr/local/bin/saferm
 ```
-
 
 ## Usage
 
