@@ -1,7 +1,23 @@
 # saferm
 
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/keisku/saferm?style=flat-square)
+
+![Trash icon](./trash.png)
+
 A safer alternative to `rm`.
 Instead of permanently deleting files and directories, `saferm` moves them to your `~/.Trash` directory, making accidental deletions easy to recover.
+
+## Installation
+
+Go to [Releases](https://github.com/keisku/saferm/releases) and download the binary for your platform.
+
+Example for macOS:
+
+```
+curl -L https://github.com/keisku/saferm/releases/latest/download/saferm-darwin-amd64 -o saferm
+chmod +x saferm
+```
+
 
 ## Usage
 
