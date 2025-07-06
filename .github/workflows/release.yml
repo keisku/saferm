@@ -10,7 +10,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
         include:
           - os: ubuntu-latest
             GOOS: linux
@@ -20,6 +20,10 @@ jobs:
             GOOS: darwin
             GOARCH: amd64
             EXT: ""
+          - os: windows-latest
+            GOOS: windows
+            GOARCH: amd64
+            EXT: ".exe"
 
     steps:
       - name: Checkout code
@@ -40,13 +44,19 @@ jobs:
           go build -ldflags="-s -w -X main.Version=${{ env.VERSION }}" -o saferm${{ matrix.EXT }} .
 
       - name: Rename binary for release
-        run: mv saferm${{ matrix.EXT }} saferm-${{ matrix.GOOS }}-${{ matrix.GOARCH }}
+        run: |
+          if [ "${{ matrix.GOOS }}" = "windows" ]; then
+            mv saferm${{ matrix.EXT }} saferm-${{ matrix.GOOS }}-${{ matrix.GOARCH }}.exe
+          else
+            mv saferm${{ matrix.EXT }} saferm-${{ matrix.GOOS }}-${{ matrix.GOARCH }}
+          fi
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: saferm-${{ matrix.GOOS }}-${{ matrix.GOARCH }}
-          path: saferm-${{ matrix.GOOS }}-${{ matrix.GOARCH }}
+          path: |
+            saferm-${{ matrix.GOOS }}-${{ matrix.GOARCH }}*
 
   release:
     needs: build
