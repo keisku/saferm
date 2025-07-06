@@ -43,15 +43,7 @@ jobs:
           GOOS: ${{ matrix.GOOS }}
           GOARCH: ${{ matrix.GOARCH }}
         run: |
-          go build -ldflags="-s -w -X main.Version=${{ env.VERSION }}" -o saferm${{ matrix.EXT }} .
-
-      - name: Rename binary for release
-        run: |
-          if [ "${{ matrix.GOOS }}" = "windows" ]; then
-            mv saferm${{ matrix.EXT }} saferm-${{ matrix.GOOS }}-${{ matrix.GOARCH }}.exe
-          else
-            mv saferm${{ matrix.EXT }} saferm-${{ matrix.GOOS }}-${{ matrix.GOARCH }}
-          fi
+          go build -ldflags="-s -w -X main.Version=${{ env.VERSION }}" -o saferm-${{ matrix.GOOS }}-${{ matrix.GOARCH }}${{ matrix.EXT }} .
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
